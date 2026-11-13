@@ -10,3 +10,8 @@ export function findByPath(path: string[]): { mod?: ModuleDef; trail: ModuleDef[
   }
   return { mod: trail[trail.length - 1], trail }
 }
+// SECTION: command collection (walks every module and sub-feature)
+import type { CommandDef } from './commands'
+export function collectCommands(list: ModuleDef[] = tree): CommandDef[] {
+  return list.flatMap(m => [...(m.commands ?? []), ...collectCommands(m.subs ?? [])])
+}

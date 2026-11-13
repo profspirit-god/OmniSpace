@@ -30,14 +30,14 @@ Rank: below AI_INSTRUCTIONS.md and DECISIONS.md. Nothing here is built yet unles
 - Never write copy that claims "military-grade", "unhackable" or similar.
 
 ## SECTION: Storage
-PLANNED (Phase 1). Local first, using the browser's IndexedDB through one interface in src/core/storage. Dexie (free, open source) is the proposed wrapper; it is a new dependency and needs owner approval and a DECISIONS.md entry before use (D-009).
+BUILT (Phase 1, part 1). Local first, using the browser's IndexedDB through one interface in src/core/storage.ts. Dexie (free, open source) is the wrapper, approved in D-016.
 - Collections are namespaced per module: <module>.<collection> (for example shopping.lists).
-- Request persistent storage (navigator.storage.persist) on first run to lower the chance of automatic eviction; tell the owner whether it was granted.
+- Persistent storage (navigator.storage.persist) is requested with the "Keep my data" button on the Data page (storage.requestPersistence), which tells the owner whether it was granted. A first-run prompt is planned with Settings.
 - Show a backup reminder when the last backup is older than 7 days (PROPOSED value).
 - A schemaVersion exists from day one; migrations are written as numbered functions and never edit old data without a pre-migration backup.
 
 ## SECTION: Record format
-Every record: id (UUID), createdAt, updatedAt (ISO strings), schemaVersion, plus its fields. Links between records (notes, journal) store ids, never copies. Deleting a linked record must not leave a broken link: either remove the link or mark it as missing.
+Every record: collection, id (UUID), createdAt, updatedAt (ISO strings), schemaVersion, and a `data` object holding its own fields. Links between records (notes, journal) store ids, never copies. Deleting a linked record must not leave a broken link: either remove the link or mark it as missing.
 
 ## SECTION: Backup, export, import
 Formats:
@@ -100,7 +100,7 @@ PLANNED (Phase 5, optional). Uses the owner's free-tier project on the separate 
 | Item | Status |
 |---|---|
 | .env ignored, .env.example | Built |
-| Storage interface, schema versions | Planned (Phase 1) |
+| Storage interface, schema version 1 | Built (migrations not needed yet) |
 | Export/import/backup, encryption | Planned (Phase 1) |
 | Password gate, destructive-action gate | Planned (Phase 1) |
 | CSP meta, font self-hosting | Planned |

@@ -7,8 +7,8 @@ Rank: below AI_INSTRUCTIONS.md and DECISIONS.md. Items marked PLANNED are not in
 - SECTION: Sub-features - nesting and when to split into folders
 - SECTION: Routing - how URLs map to modules
 - SECTION: Navigation - desktop rail, mobile bar and drawer
-- SECTION: Commands - PLANNED named-action layer
-- SECTION: Data layer - PLANNED storage boundary
+- SECTION: Commands - named-action layer
+- SECTION: Data layer - storage boundary
 - SECTION: Error handling - what exists and the rules
 - SECTION: View modes - PLANNED simple and visual views
 - SECTION: Extension rules - how to change things safely
@@ -46,13 +46,13 @@ Hash routing: #/<id>/<sub-id>/... Default is dashboard. registry.findByPath(path
 The module array order decides which four appear in the bottom bar. Reorder deliberately.
 
 ## SECTION: Commands
-PLANNED (Phase 1). Every user action is a named command so the command bar and the AI assistant use the same entry points.
+BUILT (Phase 1, part 1) in src/core/commands.ts. Every user action is a named command so the command bar and the AI assistant use the same entry points.
 - Name format: <module>.<action>, for example shopping.addItem.
-- Proposed contract: CommandDef { id, label, run(args) } returning a result with ok/error and a user-readable message. ModuleDef gets an optional `commands` list. A central command registry collects them.
+- Contract: CommandDef { id, label, destructive?, run(args) } returns { ok, message, data? }. ModuleDef has an optional `commands` list; main.tsx registers every module's commands at start (registerCommands(collectCommands())). runCommand never throws; errors become readable messages. Commands marked destructive are blocked until the password gate exists. Example: data.storageTest.
 - The AI assistant may only call registered commands. Destructive commands require the password gate (see DATA_AND_SECURITY.md).
 
 ## SECTION: Data layer
-PLANNED (Phase 1). All reads and writes go through one storage interface in src/core (no module touches the browser storage API directly). Local first. Details and rules: DATA_AND_SECURITY.md.
+BUILT (Phase 1, part 1) in src/core/storage.ts (Dexie, D-016). All reads and writes go through storage.put/get/list/remove/count; only that file imports Dexie. One `records` table keyed [collection+id]; collection names look like module.collection; a record's fields go inside `data`. Local first. Details and rules: DATA_AND_SECURITY.md.
 
 ## SECTION: Error handling
 Exists: ErrorBoundary wraps every page and resets on route change; not-found panel.
@@ -76,4 +76,5 @@ PLANNED. Every data view offers a simple view (plain lists and numbers) and a vi
 | Sidebar, tab bar, More drawer | Built |
 | ErrorBoundary | Built |
 | Dashboard animation | Built |
-| Commands, storage, settings, notices, view modes | Planned |
+| Command registry, storage layer (Dexie) | Built |
+| Settings, notices, view modes | Planned |
