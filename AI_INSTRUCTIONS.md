@@ -53,7 +53,7 @@ OmniSpace: personal productivity app by Rayner. Mobile first, then desktop. Stac
 Modules are folders in src/modules, each exporting a ModuleDef; sub-features nest in `subs` at any depth; modules are registered only in src/modules/index.ts. Actions are named commands (for example shopping.addItem) so the command bar and the AI assistant use the same entry points. Details: docs/ARCHITECTURE.md.
 
 ## SECTION: 6. Design summary
-Near true black background, lighter panels mark focus, selected nav item rooted on the background with a purple edge, red/yellow/orange/green system colors, glowing purple line art, Work Sans, conceptual minimalism. Every data view offers simple and visual modes. Details: docs/DESIGN_SYSTEM.md.
+Controlled violet on a near-black foundation. Use near-black panels, thin neutral borders, muted violet for inactive SVG line art, and primary violet only for active, selected, or focused elements. No persistent glow on ordinary icons, panels, or navigation. Keep the conceptual-minimalist line-art style, Work Sans, and functional red/yellow/orange/green system colors. The dashboard may retain restrained ambient linework, but it must not overpower the application interface. Every data view offers simple and visual modes. Exact tokens and component rules: docs/DESIGN_SYSTEM.md.
 
 ## SECTION: 7. Errors, settings, security
 Errors say what happened and where to go next. One unified Settings module, plus in-tab settings only when needed. Destructive data actions need a password and confirmation. Backups are encrypted. A static site cannot give server-grade security; do not claim it does. Details: docs/DATA_AND_SECURITY.md.

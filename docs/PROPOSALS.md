@@ -35,4 +35,13 @@ NEW (unreviewed), REVIEWED (analysis done, waiting for owner), APPROVED (moved t
 (empty)
 
 ## SECTION: Reviewed
-(empty)
+P-001 | 2026-11-13 | ChatGPT | APPROVED
+Idea: replace the glowing purple look with Controlled Violet (muted violet inactive icons, bright violet only for active/selected/focused, no persistent glow, 8px panels, quieter dashboard), plus keyboard-focus expansion of the desktop sidebar and reduced-motion transitions.
+Why: reduce visual brightness while keeping the violet identity.
+Fit: design system, theme.css, dashboard, sidebar.
+Cost: none; no new dependencies.
+Risk: low. It overrides the owner's original request for glowing line art (see D-015).
+Effort: small.
+Conflicts: supersedes the visual treatment in D-011; AI_INSTRUCTIONS.md section 6 and DESIGN_SYSTEM.md were updated to match.
+Recommendation: approve. Claude verified the build passes; visual check on screen still pending.
+Outcome: approved 2026-11-13; recorded as D-015. Process note: the proposal was first written straight into DECISIONS.md without passing through PROPOSALS.md; logged here for the record.

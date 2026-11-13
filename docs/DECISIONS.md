@@ -3,13 +3,13 @@ Rank: 2, below AI_INSTRUCTIONS.md. Append-only. To change a decision, add a new 
 
 ## INDEX
 - SECTION: Entry format
-- SECTION: D-001 to D-014 - the decisions
+- SECTION: D-001 to D-015 - the decisions
 - SECTION: Open questions - decisions waiting on the owner
 
 ## SECTION: Entry format
 ID | Date | Status (Accepted, Proposed, Superseded) | Decision | Reason | Consequence
 
-## SECTION: D-001 to D-014
+## SECTION: D-001 to D-015
 - D-001 | 2026-11-12 | Accepted | Stack is Vite, React, TypeScript, plain CSS. Reason: free, fast, runs as a static site, well known to AIs. Consequence: changing the stack needs a new entry and owner approval.
 - D-002 | 2026-11-12 | Accepted | Hash routing (#/module/sub). Reason: GitHub Pages cannot rewrite URLs. Consequence: no router library.
 - D-003 | 2026-11-12 | Accepted | Recursive module registry (ModuleDef with subs). Reason: add features and sub-features without editing core files. Consequence: modules do not import each other.
@@ -24,6 +24,7 @@ ID | Date | Status (Accepted, Proposed, Superseded) | Decision | Reason | Conseq
 - D-012 | 2026-11-12 | Accepted | Module variable names must never be reserved words. Reason: bug B-001.
 - D-013 | 2026-11-12 | Accepted | Defer the Vite upgrade that fixes the dev-tooling audit finding to its own branch. Reason: the fix is a breaking major upgrade and the finding is dev-only (B-003).
 - D-014 | 2026-11-12 | Accepted | The password gate guards against accidents and casual access only; docs and UI must say so. Reason: static site cannot enforce real access control.
+- D-015 | 2026-11-13 | Accepted | Replace the glowing-purple treatment in D-011 with Controlled Violet: near-black surfaces, quiet neutral borders, muted violet inactive line art, and primary violet only for active, selected, or focused states; no persistent glow on ordinary UI. Reason: owner selected option A to reduce visual brightness and make the interface more restrained while preserving its violet identity. Consequence: D-015 supersedes only the visual-treatment portion of D-011; D-011 typography and semantic system colors remain accepted. Implement exact tokens and component rules in docs/DESIGN_SYSTEM.md and src/styles/theme.css.
 
 ## SECTION: Open questions
 - Approve Dexie (D-009) before Phase 1 coding.
