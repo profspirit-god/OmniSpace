@@ -11,7 +11,7 @@ Rank: describes reality, not intent. Update at the end of every session.
 
 ## SECTION: Snapshot
 - Date: 2026-11-13
-- Version: 0.1.3 (Phase 0 shell, foundation docs, Phase 1 parts 1 and 2)
+- Version: 0.1.4 (Phase 0 shell, foundation docs, Phase 1 parts 1 and 2, settings revised)
 - Live: GitHub Pages from main (https://profspirit-god.github.io/OmniSpace/)
 - Branches: main (live), development
 
@@ -25,6 +25,7 @@ Rank: describes reality, not intent. Update at the end of every session.
 - Foundation docs: AI_INSTRUCTIONS, ROADMAP, README, and docs/ (map, state, architecture, design system, data and security, git workflow, decisions, proposals, changelog, buglog)
 - Phase 1 part 1: Dexie storage layer (src/core/storage.ts) and command registry (src/core/commands.ts); the Data page shows storage status, a storage self-test and a Keep my data button (D-016)
 - Phase 1 part 2: notices (notify and notice stack) and settings (default view, motion, backup reminder days) saved through storage; General settings page; settings.set command (D-017)
+- Settings are a draft with Save changes, Discard changes and Reset to defaults; unsaved-changes guard and in-app Dialog (D-018)
 - Controlled Violet design tokens and UI styling implemented in src/styles/theme.css; D-015 supersedes D-011 visual treatment
 
 ## SECTION: What is placeholder
@@ -38,10 +39,10 @@ All modules except Dashboard show a placeholder page: Second Brain (notes, links
 - Work Sans loads from Google Fonts (privacy note in DATA_AND_SECURITY.md).
 
 ## SECTION: Verified vs unverified
-- Verified by the owner: `npm.cmd install` and `npm.cmd run build` pass locally; the live site loads and looks good.
+- Verified by the owner: `npm.cmd install` and `npm.cmd run build` pass locally; the live site loads and looks good; the Data page storage test passed.
 - Verified by Claude (2026-11-13, clean install in a Linux sandbox): `npm install` and `npm run build` (tsc + vite) pass on the Controlled Violet revision. Not yet confirmed on the owner's PC.
 - Verified by Claude: the build also passes with Dexie, storage and commands added, and again after notices and settings (sandbox, 2026-11-13).
-- Unverified: storage and settings working in a real browser (Test storage on the Data page; change a setting, reload, check it stuck), how the revision looks on screen (desktop and phone), reduced-motion behavior, keyboard navigation.
+- Unverified: the settings Save, Discard and Reset flow and the unsaved-changes dialog in a real browser, how the revision looks on screen (desktop and phone), reduced-motion behavior, keyboard navigation.
 
 ## SECTION: Next step
-Owner checks the Data test and Settings > General in a browser. Then Phase 1 part 3: backup, export and import.
+Owner checks Settings > General (edit, save, discard, reset, leave with unsaved changes). Then Phase 1 part 3: backup, export and import (or the password gate first, owner's choice).

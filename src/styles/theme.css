@@ -177,3 +177,12 @@ main { flex: 1; min-width: 0; overflow: auto; position: relative; }
 :root[data-motion="reduced"] .orbit, :root[data-motion="reduced"] .brand { animation: none; }
 :root[data-motion="reduced"] .sidebar, :root[data-motion="reduced"] .nav-label { transition: none; }
 @media (max-width: 768px) { .notices { bottom: calc(var(--tab) + 12px); right: 12px; left: 12px; max-width: none; } }
+
+/* SECTION: forms, rows and dialogs */
+.field .err { color: var(--red); font-size: .85rem; margin: 0; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; } .row.end { justify-content: flex-end; }
+.panel button:disabled { opacity: .45; cursor: not-allowed; }
+.panel button.primary { border-color: var(--line); } .panel button.danger { border-color: var(--red); color: var(--red); }
+.unsaved { border: 1px solid var(--yellow); border-radius: var(--radius-control); padding: 10px 12px; margin-top: 16px; }
+.dialog-scrim { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 80; padding: 16px; }
+.dialog { margin: 0; max-width: 440px; width: 100%; } .dialog h2 { margin: 0 0 8px; font-weight: 500; } .dialog p { color: var(--mute); line-height: 1.6; }

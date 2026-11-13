@@ -12,6 +12,7 @@ Rank: below AI_INSTRUCTIONS.md. Tokens live only in src/styles/theme.css; never 
 - SECTION: Motion - allowed and forbidden
 - SECTION: Copy and errors - how text is written
 - SECTION: Accessibility - minimum bar
+- SECTION: Forms and dialogs - draft and save pattern, in-app dialogs
 - SECTION: Data display - simple and visual views
 
 ## SECTION: Principles
@@ -66,6 +67,13 @@ Plain verbs, sentence case, no filler. Buttons name the action ("Save changes", 
 
 ## SECTION: Accessibility
 Visible keyboard focus (2px --line outline with offset), reduced motion respected, text contrast on --bg and --p1 stays readable, tap targets at least 40px, labels on icon-only controls (aria-label). Do not communicate state through purple alone; pair it with position, shape, text, or another non-color cue. PLANNED: audit on a real phone.
+
+## SECTION: Forms and dialogs
+- Never block typing or clearing a field. Validate after the user stops, show a plain hint under the field (what is wrong and what to enter), and keep Save off until the values are valid.
+- Edits are a draft. Provide Save changes and Discard changes. While there are unsaved changes show a banner on the page and ask in an in-app dialog before leaving the page.
+- Never use window.alert, confirm or prompt. Use components/Dialog.tsx. The first button is the safe one (Cancel or Keep editing). Destructive buttons use the red outline.
+- Closing or reloading the tab uses the browser's own prompt. It cannot be restyled; do not try to fake it.
+- Settings pages offer Reset to defaults behind a confirmation dialog.
 
 ## SECTION: Data display
 Rule: every data view has a Simple view and a Visual view, switched by one control in the same place on every screen, remembered per module.

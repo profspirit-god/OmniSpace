@@ -63,7 +63,8 @@ BUILT (Phase 1, part 2): notify() and the notice stack (see Settings and notices
 ## SECTION: Settings and notices
 BUILT (Phase 1, part 2).
 - Notices: src/core/notices.ts and components/Notices.tsx. notify('success' | 'info', text) or notify('warning' | 'error', text, next). The types require the next-step text for warnings and errors. Errors stay until dismissed; others fade after 6 seconds. Use notices for non-fatal results; ErrorBoundary stays for crashes.
-- Settings: src/core/settings.ts. One record, settings.app / main, mirrored in memory (getSettings, useSettings, updateSetting). Add a setting by editing DEFAULTS and validate() there and the General page. Current settings: defaultView, motion, backupReminderDays. The motion setting sets data-motion on the page root, which theme.css uses. Command: settings.set.
+- Settings: src/core/settings.ts. One record, settings.app / main, mirrored in memory (getSettings, useSettings, saveSettings, updateSetting, resetSettings). Add a setting by editing DEFAULTS and validate() there and the General page. Current settings: defaultView, motion, backupReminderDays. The motion setting sets data-motion on the page root, which theme.css uses. Command: settings.set.
+- Unsaved changes: src/core/unsaved.ts holds the one active guard { dirty, save, discard }; a form registers it while it is on screen. App.tsx blocks in-app navigation while it is dirty and shows an in-app Dialog (components/Dialog.tsx). The browser's own prompt covers closing or reloading the tab.
 
 ## SECTION: View modes
 PLANNED. Every data view offers a simple view (plain lists and numbers) and a visual view (charts, colors, body map). The choice is stored per module in settings.

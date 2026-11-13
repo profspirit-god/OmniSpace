@@ -39,6 +39,7 @@ OmniSpace: personal productivity app by Rayner. Mobile first, then desktop. Stac
 - No secrets in the repo. Only the Supabase anon key may be in .env (git-ignored). Never a service key.
 - Module variable names must never be JavaScript reserved words (import, export, default, new...). The id string may be one; the variable may not.
 - Never delete or overwrite user data without explicit confirmation and a backup path.
+- Never use window.alert, confirm or prompt; use the in-app Dialog and notices. Forms never block typing or clearing a field: use a draft with Save and Discard (see docs/DESIGN_SYSTEM.md, Forms and dialogs).
 - Add dependencies only when needed, free, maintained, and approved by the owner.
 
 ## SECTION: 4. Working standards

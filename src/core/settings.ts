@@ -16,7 +16,7 @@ const subs = new Set<() => void>()
 const emit = () => { document.documentElement.dataset.motion = state.motion; subs.forEach(f => f()) }
 export const getSettings = () => state
 export const useSettings = () => useSyncExternalStore(f => (subs.add(f), () => { subs.delete(f) }), getSettings)
-// SECTION: load and update
+// SECTION: load, save, reset
 export async function loadSettings() {
   try {
     const r = await storage.get('settings.app', 'main')
@@ -26,11 +26,16 @@ export async function loadSettings() {
   }
   emit()
 }
-export async function updateSetting<K extends keyof Settings>(key: K, value: Settings[K]): Promise<boolean> {
-  if (!validate(key, value)) return false
-  state = { ...state, [key]: value }; emit()
-  try { await storage.put('settings.app', { ...state }, 'main') } catch {
-    notify('error', 'The setting changed for now but could not be saved.', 'Allow site data for this page, then change it again.')
+export type SaveResult = 'invalid' | 'memory-only' | 'saved'
+async function persist(): Promise<SaveResult> {
+  try { await storage.put('settings.app', { ...state }, 'main'); return 'saved' } catch {
+    notify('error', 'The settings changed for now but could not be saved.', 'Allow site data for this page, then save again.')
+    return 'memory-only'
   }
-  return true
 }
+export async function saveSettings(patch: Partial<Settings>): Promise<SaveResult> {
+  for (const [k, v] of Object.entries(patch)) if (!validate(k, v)) return 'invalid'
+  state = { ...state, ...patch }; emit(); return persist()
+}
+export const updateSetting = async <K extends keyof Settings>(key: K, value: Settings[K]) => (await saveSettings({ [key]: value } as Partial<Settings>)) !== 'invalid'
+export async function resetSettings(): Promise<SaveResult> { state = { ...DEFAULTS }; emit(); return persist() }
