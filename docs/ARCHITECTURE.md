@@ -1,0 +1,79 @@
+# docs/ARCHITECTURE.md (HOW OMNISPACE IS BUILT)
+Rank: below AI_INSTRUCTIONS.md and DECISIONS.md. Items marked PLANNED are not in the code yet.
+
+## INDEX
+- SECTION: Folder map - where everything lives
+- SECTION: Modules - the ModuleDef contract and how to add one
+- SECTION: Sub-features - nesting and when to split into folders
+- SECTION: Routing - how URLs map to modules
+- SECTION: Navigation - desktop rail, mobile bar and drawer
+- SECTION: Commands - PLANNED named-action layer
+- SECTION: Data layer - PLANNED storage boundary
+- SECTION: Error handling - what exists and the rules
+- SECTION: View modes - PLANNED simple and visual views
+- SECTION: Extension rules - how to change things safely
+- SECTION: Built vs planned - quick status table
+
+## SECTION: Folder map
+- src/core - types.ts (ModuleDef), registry.ts (tree, findByPath)
+- src/modules - one folder per feature; index.ts is the only registration point
+- src/components - shared UI: Sidebar, Icon, Placeholder, ErrorBoundary, Dashboard
+- src/styles - theme.css (all design tokens)
+- docs, tools, public, .github/workflows - documents, helper scripts, static files, deploy
+Features never import from other features. Shared code goes in src/core or src/components.
+
+## SECTION: Modules
+Contract (src/core/types.ts): ModuleDef { id, label, icon?, page?, subs? }.
+- id: kebab-case, unique among siblings, becomes the URL segment.
+- page: optional React component; if missing, the Placeholder page shows.
+- Variable names must not be JavaScript reserved words (import, export, default, new...). The id may be one; the variable may not (example: id 'export', variable exportData).
+Add a module:
+1. Create src/modules/<id>/index.ts exporting a ModuleDef.
+2. Import and add it to the array in src/modules/index.ts (array order = nav order).
+3. Build a page component inside the module folder and set `page`.
+No core file changes are needed to add a feature.
+
+## SECTION: Sub-features
+Sub-features use the same ModuleDef shape inside `subs`, at any depth. Start as one-line files (id, label, icon). When a sub-feature gets a page or logic, it keeps its own folder (src/modules/<parent>/<sub>/). A sub-feature can have its own subs.
+
+## SECTION: Routing
+Hash routing: #/<id>/<sub-id>/... Default is dashboard. registry.findByPath(path[]) walks the tree; unknown paths show the "Page not found" panel. Hash routing is used because GitHub Pages cannot rewrite URLs. Do not add a router library without owner approval.
+
+## SECTION: Navigation
+- Desktop: icon rail (56px) expands to 248px on hover. The active module shows its subs underneath.
+- Mobile (max-width 768px): bottom bar with the first four modules plus a More button that opens a drawer with the full tree and a scrim.
+- Selected item uses the page background color with a purple left edge.
+The module array order decides which four appear in the bottom bar. Reorder deliberately.
+
+## SECTION: Commands
+PLANNED (Phase 1). Every user action is a named command so the command bar and the AI assistant use the same entry points.
+- Name format: <module>.<action>, for example shopping.addItem.
+- Proposed contract: CommandDef { id, label, run(args) } returning a result with ok/error and a user-readable message. ModuleDef gets an optional `commands` list. A central command registry collects them.
+- The AI assistant may only call registered commands. Destructive commands require the password gate (see DATA_AND_SECURITY.md).
+
+## SECTION: Data layer
+PLANNED (Phase 1). All reads and writes go through one storage interface in src/core (no module touches the browser storage API directly). Local first. Details and rules: DATA_AND_SECURITY.md.
+
+## SECTION: Error handling
+Exists: ErrorBoundary wraps every page and resets on route change; not-found panel.
+Rules: every error message says what happened and where to go next. Never show a raw stack trace. Log new bugs in docs/BUGLOG.md with evidence.
+PLANNED: a shared notice/toast component for non-fatal errors.
+
+## SECTION: View modes
+PLANNED. Every data view offers a simple view (plain lists and numbers) and a visual view (charts, colors, body map). The choice is stored per module in settings.
+
+## SECTION: Extension rules
+- One change, one purpose. Do not refactor unrelated files in a feature branch.
+- Never edit src/core to add a feature; extend the contract in a separate, documented change.
+- Add a DECISIONS.md entry for anything that changes the contract, folder layout or stack.
+- Update this doc's INDEX and the Built vs planned table when structure changes.
+
+## SECTION: Built vs planned
+| Item | Status |
+|---|---|
+| Module registry, recursive subs | Built |
+| Hash routing, not-found page | Built |
+| Sidebar, tab bar, More drawer | Built |
+| ErrorBoundary | Built |
+| Dashboard animation | Built |
+| Commands, storage, settings, notices, view modes | Planned |
