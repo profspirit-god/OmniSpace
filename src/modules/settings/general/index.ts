@@ -1,2 +1,3 @@
 import type { ModuleDef } from '../../../core/types'
-export const general: ModuleDef = { id: 'general', label: 'General', icon: 'general' } // sub-feature placeholder; add subs: [] to nest deeper
+import { GeneralSettings } from '../GeneralSettings'
+export const general: ModuleDef = { id: 'general', label: 'General', icon: 'general', page: GeneralSettings }

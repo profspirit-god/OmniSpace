@@ -62,7 +62,7 @@ Forbidden: persistent glow, pulsing, or bloom on ordinary controls; entrance ani
 Always respect prefers-reduced-motion. Reduced-motion users must not receive decorative animation.
 
 ## SECTION: Copy and errors
-Plain verbs, sentence case, no filler. Buttons name the action ("Save changes", not "Submit"); the same action keeps the same name everywhere. Errors say what happened and what to do next, never apologize, never vague. Empty screens say how to start.
+Plain verbs, sentence case, no filler. Buttons name the action ("Save changes", not "Submit"); the same action keeps the same name everywhere. Errors say what happened and what to do next, never apologize, never vague. Empty screens say how to start. Notices use a colored left edge (green success, yellow warning, red error, violet info); errors stay until dismissed, others fade after 6 seconds, and warnings and errors always include a next step.
 
 ## SECTION: Accessibility
 Visible keyboard focus (2px --line outline with offset), reduced motion respected, text contrast on --bg and --p1 stays readable, tap targets at least 40px, labels on icon-only controls (aria-label). Do not communicate state through purple alone; pair it with position, shape, text, or another non-color cue. PLANNED: audit on a real phone.

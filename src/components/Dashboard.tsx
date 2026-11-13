@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react'
+import { getSettings } from '../core/settings'
 // SECTION: MVP dashboard. Starfield (canvas) + orbit rings (CSS) around the OmniSpace title.
 export function Dashboard() {
   const ref = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     const c = ref.current!, g = c.getContext('2d')!
-    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches || getSettings().motion === 'reduced'
     const lineColor = getComputedStyle(document.documentElement).getPropertyValue('--line').trim()
     let w = 0, h = 0, raf = 0
     const stars = Array.from({ length: 88 }, () => ({ a: Math.random() * 6.283, r: Math.random(), s: 0.0008 + Math.random() * 0.002 }))

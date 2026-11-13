@@ -10,6 +10,7 @@ Rank: below AI_INSTRUCTIONS.md and DECISIONS.md. Items marked PLANNED are not in
 - SECTION: Commands - named-action layer
 - SECTION: Data layer - storage boundary
 - SECTION: Error handling - what exists and the rules
+- SECTION: Settings and notices - settings record, notify rules
 - SECTION: View modes - PLANNED simple and visual views
 - SECTION: Extension rules - how to change things safely
 - SECTION: Built vs planned - quick status table
@@ -57,7 +58,12 @@ BUILT (Phase 1, part 1) in src/core/storage.ts (Dexie, D-016). All reads and wri
 ## SECTION: Error handling
 Exists: ErrorBoundary wraps every page and resets on route change; not-found panel.
 Rules: every error message says what happened and where to go next. Never show a raw stack trace. Log new bugs in docs/BUGLOG.md with evidence.
-PLANNED: a shared notice/toast component for non-fatal errors.
+BUILT (Phase 1, part 2): notify() and the notice stack (see Settings and notices).
+
+## SECTION: Settings and notices
+BUILT (Phase 1, part 2).
+- Notices: src/core/notices.ts and components/Notices.tsx. notify('success' | 'info', text) or notify('warning' | 'error', text, next). The types require the next-step text for warnings and errors. Errors stay until dismissed; others fade after 6 seconds. Use notices for non-fatal results; ErrorBoundary stays for crashes.
+- Settings: src/core/settings.ts. One record, settings.app / main, mirrored in memory (getSettings, useSettings, updateSetting). Add a setting by editing DEFAULTS and validate() there and the General page. Current settings: defaultView, motion, backupReminderDays. The motion setting sets data-motion on the page root, which theme.css uses. Command: settings.set.
 
 ## SECTION: View modes
 PLANNED. Every data view offers a simple view (plain lists and numbers) and a visual view (charts, colors, body map). The choice is stored per module in settings.
@@ -77,4 +83,5 @@ PLANNED. Every data view offers a simple view (plain lists and numbers) and a vi
 | ErrorBoundary | Built |
 | Dashboard animation | Built |
 | Command registry, storage layer (Dexie) | Built |
-| Settings, notices, view modes | Planned |
+| Notices, general settings | Built |
+| View mode switch on data screens | Planned |

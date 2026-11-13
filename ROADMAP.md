@@ -26,7 +26,7 @@ Done when: live site loads; build passes; docs 1-8 shipped.
 ## SECTION: Phase 1 - Foundation [ACTIVE]
 Scope: storage interface (local first), command registry, unified Settings module, notices (non-fatal errors), export/import/backup, backup encryption, password gate and destructive-action gate, simple/visual view switch, per-module SVG icons.
 Done when: data survives reload; full backup exports and restores in a round-trip test; a replace-import is blocked without the password; every error shows what happened and what to do; icons are unique per module.
-Progress: part 1 of 5 built (storage layer, command registry). Remaining order: 2 settings and notices, 3 backup/export/import, 4 password gate, 5 per-module icons. Dexie approved (D-016).
+Progress: parts 1 and 2 of 5 built (storage layer, command registry, notices, general settings). Remaining order: 3 backup/export/import, 4 password gate, 5 per-module icons. Dexie approved (D-016).
 
 ## SECTION: Phase 2 - Notes, journal, shopping [LATER]
 Scope: Second Brain with linked notes and backlinks, journal linked to it, shopping templates with reusable lists, per-store prices and a grocery checklist.
